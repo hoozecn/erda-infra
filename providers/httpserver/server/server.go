@@ -31,6 +31,7 @@ type (
 		Router() Router
 		Start(addr string) error
 		Close() error
+		ServeHTTP(http.ResponseWriter, *http.Request)
 	}
 	// RouterTx .
 	RouterTx interface {

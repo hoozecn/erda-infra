@@ -53,6 +53,7 @@ type (
 	RouterManager interface {
 		NewRouter(opts ...interface{}) RouterTx
 		Reloadable() bool
+		ServeHTTP(http.ResponseWriter, *http.Request)
 	}
 	// RouterTx .
 	RouterTx interface {
@@ -375,6 +376,10 @@ type routerManager struct {
 	group string
 	opts  []interface{}
 	p     *provider
+}
+
+func (rm *routerManager) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	rm.p.server.ServeHTTP(w, r)
 }
 
 func (rm *routerManager) NewRouter(opts ...interface{}) RouterTx {
